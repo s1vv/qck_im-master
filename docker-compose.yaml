@@ -1,0 +1,53 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: backend.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - GIN_MODE=release
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=${SQL_PASS}
+      - DB_NAME=qck
+      - SERVER_PORT=8080
+      - APP_ENV=${BACK_ENV}
+      - BASE_URL=${BASE_URL}
+    volumes:
+      - logs:/app/logs
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend/dist:/usr/share/nginx/html:ro 
+    ports:
+      - "8081:80"
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SQL_PASS}
+      MYSQL_DATABASE: qck
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ABSOLUTE_URI: ${URL_PHPADMIN}
+    ports:
+      - "8082:80"
+    depends_on:
+      - db
+
+volumes:
+  logs:
+  db_data:
