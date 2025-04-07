@@ -29,7 +29,7 @@
 
 ## 📎 Ссылки и ресурсы
 
-- Репозиторий: [github.com/qckim/qck-md-pages](https://github.com/qckim/qck-md-pages)
+- Репозиторий: [https://github.com/s1vv/qck_im-master](https://github.com/s1vv/qck_im-master)
 - Демо-сайт: [qck.im](https://qck.im)
 - Канал в ТГ: [t.me/qck_im](https://t.me/qck_im)
 - Email для связи: [support@qck.im](mailto:support@qck.im)
